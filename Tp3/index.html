@@ -6,16 +6,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="style.css">
+    <script src="/script.js" defer></script>
 </head>
 <body>
     <div id="main">
-        <div class="passGen"><div><p>M.Tra</p></div><div><button id="copy" >Copy</button></div></div>
-        <div><label for="">Longueur du Password </label><input type="number" class="saisi"></div>
-        <div><label for="">Contient des Lettres Majuscules</label><input type="checkbox"></div>
-        <div><label for="">Contient des Lettres Minuscules</label><input type="checkbox"></div>
-        <div><label for="">Contient des Nombres</label><input type="checkbox"></div>
-        <div><label for="">Contient des Caracteres Speciaux</label><input type="checkbox"></div>
-        <div><input type="button" class="passGen passGenlast" value="Generer Le Mot de Passe"></div>
+        <div class="passGen"><div id="divp"><p></p></div><div id="divb"><button id="copy" >Copy</button></div></div>
+        <div id="divLenght"><label for="">Longueur du Password </label><input type="number" class="saisi" min="5" max="25" id="lenght"><span class="chk">X</span></div>
+        <div id="divMaj"><label for="">Contient des Lettres Majuscules</label><input type="checkbox" id="maj" onclick="check();"></div>
+        <div id="divMin"><label for="">Contient des Lettres Minuscules</label><input type="checkbox" id="min" onclick="check();"></div>
+        <div id="divNum"><label for="">Contient des Nombres</label><input type="checkbox" id="num" onclick="check();"></div>
+        <div id="divChar"><label for="">Contient des Caracteres Spéciaux</label><input type="checkbox" id="char" onclick="check();"></div>
+        <div id="divPass"><input type="button" class="passGen passGenlast" value="Generer Le Mot de Passe" onsubmit="chk()"></div>
     </div>
 </body>
 </html>

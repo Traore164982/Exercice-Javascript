@@ -18,8 +18,9 @@
 }
 
 .saisi{
-    width: 10%;
+    width: 20%;
     margin-right: 2%;
+    font-size: 25px;
     float: right;
     height: 80%;
     display: flex;
@@ -52,7 +53,7 @@
 .passGenlast{
     margin-bottom: 10px;
     color: indigo;
-    font-size: 30px;
+    font-size: 25px;
     font-weight: bold;
     margin: 0px 5%;
     width: 90%;
@@ -72,4 +73,9 @@
 
 #input{
     display: inline-flex;
+}
+
+.chk{
+    color: red;
+    visibility: hidden;
 }

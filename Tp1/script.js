@@ -10,6 +10,7 @@ console.log(document.querySelector('#editing')); */
 
 var addBtn = document.getElementById('btn');
 addBtn.addEventListener('click', addNote);
+
 console.log(addBtn);
 function createNote() {
     let edit_btn = document.createElement('input');

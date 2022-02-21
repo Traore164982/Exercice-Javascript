@@ -35,6 +35,13 @@ body{
 /*     overflow: hidden;*/    
     border: 1px solid red;
     flex-direction: column;
+    margin-right: 20%;
+}
+textarea{
+    max-width: 300px;
+    min-width: 100px;
+    max-height: 300px;
+    min-height: 100px;
 }
 #editing{
     background-color: rgb(114, 189, 39);
@@ -43,6 +50,7 @@ body{
     display: flex;
     justify-content: flex-end;
 }
+
 
 #Gest{
     display: flex;

@@ -1,3 +1,4 @@
 {
-    "liveServer.settings.port": 5501
+    "liveServer.settings.port": 5501,
+    "livePreview.defaultPreviewPath": "/home/traore/Sonatel Academy/Js Exercices/Tp2/index.html"
 }
