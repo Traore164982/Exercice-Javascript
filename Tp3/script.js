@@ -1,3 +1,5 @@
+// var value = document.getElementById('p');
+alert('TRa')
 var input =document.getElementsByTagName('input');
 var label =document.getElementsByTagName('label');
 
@@ -36,6 +38,7 @@ input_5.setAttribute('value','Generer Le Mot de Passe');
 
 var btn = document.createElement('button');
 btn.setAttribute('id','copy');
+
 var p =document.createElement('p');
 
 
@@ -105,17 +108,14 @@ divMain.append(divPassGen,divLenght,divMaj,divMin,divNum,divChar,divPass);
 
 console.log(divMain);
 
-document.getElementById('maj').addEventListener('click',()=>{
-    document.getElementById('maj').value =="1";
-},'');
 
-console.log(document.getElementById("lenght").valu);
+console.log(document.getElementById("lenght").value);
 
 
 
 
 function check(){
-    var length = document.getElementById('length');
+    var length = document.getElementById('lenght');
     var num = "0123456789";
     var min = "abcdefghijklmnopqrstuvwxyz";
     var maj = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
@@ -123,23 +123,56 @@ function check(){
     var inputs = document.getElementsByTagName('input'),
     inputsLength = inputs.length;
     var tab ="";
+    
+    var value = document.getElementById("lenght").value;
+    console.log(value);
     for (var i = 1 ; i < inputsLength -1 ; i++) {
-    if (inputs[i].type == 'checkbox' && inputs[i].checked && (inputs[i].id=="maj" || inputs[i].id=="num" || inputs[i].id=="min" || inputs[i].id=="char")) {
+    if (inputs[i].type == 'checkbox' && inputs[i].checked) {
         if (input[i].id=='maj'){
-           tab= tab+maj[(Math.floor(Math.random()*maj.length))];
+           tab += maj[(Math.floor(Math.random()*maj.length))];
         }
         if (input[i].id=='min'){
-            tab = tab+min[(Math.floor(Math.random()*min.length))];
+            tab += min[(Math.floor(Math.random()*min.length))];
         }
         if (input[i].id=='num'){
-            tab = tab+num[Math.floor(Math.random()*num.length)];
+            tab += num[Math.floor(Math.random()*num.length)];
 
         }
         if (input[i].id=='char'){
-            tab = tab+spe[Math.floor(Math.random()*spe.length)];
+            tab += spe[Math.floor(Math.random()*spe.length)];
         }
-         
+
     }
 }
-p.innertext = console.log(tab);
+return tab;
+}
+// console.log(check());
+document.getElementById('p').innerText = check();
+
+function chk(){
+    document.getElementById('p').value = "";
+    console.log(document.getElementById('p').value);
+    var recup = "";
+    var retur ="";
+    // console.log(check().substring(1,document.getElementById('p').value));
+    // document.getElementById('p').innerText =
+for (let index = 1; index <= document.getElementById('lenght').value; index++) {
+        recup += check();
+    }
+    var val = document.getElementById('lenght').value;
+    recup = recup.substring(0, val);
+    console.log(recup);
+    for (let index = 0; index < val; index++) {
+       retur += recup[(Math.floor(Math.random()*val))];
+    }
+    console.log(retur);
+    document.getElementById('p').innerText = retur;
+    console.log(retur.length);
+    // if(length(recup))
+}
+
+function move(){
+    if(document.getElementById('p').innerText){
+        
+    }
 }

@@ -79,3 +79,10 @@
     color: red;
     visibility: hidden;
 }
+p{
+    color: white;
+}
+
+#copy{
+    visibility: hidden;
+}
