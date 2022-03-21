@@ -68,7 +68,6 @@ function affiche(y){
     c.innerText = Questions[y].c;
     d.innerText = Questions[y].d;
     
-    
 }
 affiche(y);
 function Suivant(){
