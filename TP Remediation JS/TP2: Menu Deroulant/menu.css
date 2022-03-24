@@ -16,12 +16,21 @@ nav{
     background-color: rgba(3, 1, 1, 0.849);
 }
 
+.menu-nav{
+    color: white;
+    height: 100vh;
+    width: 5%;
+    margin-top: 0%;
+    background-color: rgba(3, 1, 1, 0.849);
+}
+
+
 input[type="search"]{
     color: white;
 }
 label{
-    position: fixed;
-    margin-left: 40vh;
+    position:absolute;
+    margin-left: 28%;
 }
  ul li{
     display: flex;

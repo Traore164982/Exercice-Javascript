@@ -1,6 +1,6 @@
 function countDown() {
     let date1 = new Date();
-    let date = new Date(2023,0,1,00,00,00);
+    let date = new Date(date1.getFullYear()+1,0,1,00,00,00);
     var tmp = date - date1;
     var td = document.querySelectorAll('td');
     console.log(td);
@@ -13,6 +13,7 @@ function countDown() {
         i++;
     }
 }
+
 setInterval(() => {
     countDown();
 },1000);

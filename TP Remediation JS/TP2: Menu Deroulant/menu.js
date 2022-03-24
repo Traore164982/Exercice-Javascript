@@ -17,7 +17,22 @@ let tableau =
     { 
         titre: "Layout Options",
         className: 'layoutOptions',
-        liste: ['ChartJS', 'Flot', 'Inline', 'uPlot'],
+        liste: [
+          {
+            titre: "Charts",
+            className: 'charts',
+            liste: [{
+              titre: "Charts",
+               className: 'charts',
+              liste: [],
+             iconePrincipal: 'fas fa-chart-pie',
+             angleLeft: 'fa fa-angle-left'
+            }],
+            iconePrincipal: 'fas fa-chart-pie',
+            angleLeft: 'fa fa-angle-left'
+          },
+          'ChartJS', 'Flot', 'Inline', 'uPlot'
+        ],
         iconePrincipal: 'fas fa-copy',
         angleLeft: 'fa fa-angle-left'
         
@@ -110,14 +125,16 @@ function crea(iconePrincipal,titre,badge,liste,angleLeft){
     });
 
   }
+
+  console.log(span2)
   document.getElementById('menu').addEventListener('click',()=>{
     a=!a
     if (a) {
-      span2.style.display="none";
+      span2.classList.toggle('menu_nav');
+      document.getElementsByClassName('span2').style.display="none";
       nav.style.width="10vh";
     }else{
-      span2.style.display="block";
-      nav.style.width="45vh";
+      nav.style.width="25%";
     }
     
   })
