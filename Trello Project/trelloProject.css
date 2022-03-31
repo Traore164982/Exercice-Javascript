@@ -1,6 +1,7 @@
 *{
     padding: 0%;
     margin: 0%;
+    transition: all transform .8s ease-in-out;
     overflow: hidden;
 }
 body{
@@ -13,8 +14,9 @@ body{
 }
 
 .Colonnes{
-    width: 100%;
+    width: 90%;
     height: 5vh;
+    margin-bottom: 0.5rem;
     display: flex;
     position: relative;
     background-color: dimgrey;
@@ -28,15 +30,15 @@ body{
     height: 100%;
     text-align: left;
     margin: 1% 0;
-    text-indent: 6vh;
+    text-indent: 3rem;
 }
 .Colonnes i{
     position: absolute;
+    left: 1rem;
+    font-size: 1.5rem;
 }
 
-#divNotes{
 
-}
 #divCols{
     margin-top: 1%;
     width: 100%;
@@ -49,10 +51,8 @@ body{
     height: 100%;
     margin: 0 1%;
     display: flex;
-    background-repeat: no-repeat;
-    background-size: contain;
-    background-position-y: 90%;
     flex-direction: column;
+    align-items: center;
 }
 
 .colChild{
@@ -60,28 +60,61 @@ body{
     height: 15vh;
     background-color: black;
 }
+#ColImg{
+    position: absolute;
+    top: 70%;
+    width: 5%;
+}
 
 .Div{
-    width: 98%;
-    height: 15%;
+    width: 85%;
+    height: 10%;
+    margin-bottom: 2%;
+    align-items: center;
     position: relative;
     display: flex;
-    border: 1px solid red;
-    margin: 1%;
+    box-shadow: 1px 1px 2px rgba(0,0,0,1);
+    border: .5vh solid dimgrey;
     flex-direction: column;
+    border-radius: 10px;
     overflow: hidden;
-    
+    justify-content: center;
 }
+
+#left{
+    position: absolute;
+    left: 2%;
+    padding: 10.5% 0;
+    text-align: center;
+    top: 0%;
+    font-size: 10px;
+    font-weight: bold;
+
+    border: 1px solid red;
+}
+
+#right{
+    position: absolute;
+    font-size: 10px;
+    right: 2%;
+    top: 0%;
+    padding: 10.5% 0;
+    font-weight: bold;
+    border: 1px solid red;
+}
+
 #im{
     position: absolute;
     right: 0%;
 }
+
 form{
     height: 80vh;
     width: 40%;
     position: absolute;
     background-color: #FFF;
     margin-left: 30%;
+    border-radius: 10px;
     top: 5%;
     align-items: center;
     display: flex;
@@ -89,8 +122,11 @@ form{
     border: 1px solid black;
     flex-direction: column;
     justify-content: center;
-    box-shadow: 0px 0px 14px rgba(0,0,0,10);
+    box-shadow: 10px 10px 2px rgba(0,0,0,10);
+}
 
+h4{
+    width: 80%;
 }
 
 /* #overview{
@@ -108,6 +144,33 @@ form{
 .over{
     visibility: visible;
 } */
+
+.view{
+    height: 100%;
+    text-align: center;
+    width: 80%;
+    font-weight: bold;
+}
+
+#over{
+    position: absolute;
+    height: 100%;
+    text-align: center;
+    width: 80%;
+    font-size: 13px;
+    color: black;
+    background-color: #FFF;
+    border: .3vh solid black;
+    transform: translateY(100px);
+    border-radius: 10px;
+    display: flex;
+    justify-content: center;
+}
+
+.Div:hover #over{
+    transform: translateY(0);
+}
+
 form input[type=button]{
     height: 7%;
     width: 70%;
@@ -135,7 +198,7 @@ form label{
     width: 100%;
     justify-content: space-around;
     align-items: center;
-    height: 15%;
+    height: 13%;
     margin: 5%;
     font-size: 30px;
 }
@@ -176,6 +239,10 @@ form label{
     border-radius: 50%;
 }
 
+#submit1{
+    display: none;
+}
+
 textarea{
     resize: none;
     width: 90%;
@@ -186,3 +253,126 @@ textarea{
     box-shadow: 0 0 14px rgba(0,0,0,10) ;
 
 }
+
+.Coltitle{
+    display: flex;
+    justify-content: space-between;
+    width: 98%;
+    background-color: dimgray;
+    border: 2px solid black;
+    border-radius: 5px;
+    text-indent: 1%;
+    height: 10%;
+    align-items: center;
+}
+#navBar{
+    width: 18%;
+    height: 90%;
+    top: 12%;
+    transform: translateX(100%);
+    color: white;
+    right: -2%;
+    position: absolute;
+    background-image: linear-gradient(black,white,dimgray);
+    display: flex;
+    flex-direction: column;
+}
+
+#navBar h4{
+    width: 60%;
+    text-align: center;
+}
+#navBar i{
+    position: absolute;
+    right: 15%;
+    font-size: 25px;
+    font-weight: bold;
+}
+#navBarDiv{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-top: 5%;
+    width: 100%;
+}
+
+#labelnav{
+    position: absolute;
+    top: 5%;
+    right: 1%;
+    position: fixed;
+    color: black;
+    background-color: initial;
+    width: 3.5%;
+    display: flex;
+    height: 7%;
+    align-items: center;
+}
+
+
+#labelnav i{
+    width: 80%;
+    margin-left: 15%;
+    margin-top: 10%;
+    height: 80%;
+    font-size: 2.2em;
+}
+
+#restaureAll{
+    position: absolute;
+    background-color: white;
+    width: 3.5%;
+    height: 7%;
+    bottom: 2%;
+    right: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: 2px solid black;
+}
+#resti{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+#addColonne{
+    position: absolute;
+    background-color: white;
+    width: 3.5%;
+    height: 7%;
+    bottom: 2%;
+    left: 2%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    border: 2px solid black;
+}
+#addColonneI{
+    font-size: 25px;
+    font-weight: bold;
+}
+
+.iCol{
+    position: absolute;
+    font-size: 10px;
+    bottom: 0;
+    padding: 4% 0;
+    font-weight: bold;
+    height: auto;
+    border: 1px solid red;
+}
+
+#navBar .Div i{
+    visibility: hidden;
+}
+
+.col:first-child #left{
+    visibility: hidden;
+}
+
+.col:last-child #right{
+    visibility: hidden;
+}
+
