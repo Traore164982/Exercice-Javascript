@@ -86,7 +86,9 @@ document.body.appendChild(Container);
 
 restaure.addEventListener('click', () => {
     Container.querySelectorAll('.Div').forEach(element => {
-        col1.appendChild(element)
+        if(element.parentElement.id!="navBar"){
+            col1.appendChild(element)
+        }
     });
 })
 
@@ -117,8 +119,8 @@ label2.setAttribute('for', 'Date')
 label2.innerText = "Date :"
 const input2 = document.createElement('input')
 input2.type = "date"
-input2.max= new Date().getDay() + '-' +(new Date().getMonth()+1) + '-' + new Date().getFullYear();
-input2.id = "Date"
+/* input2.max= new Date().getDay() + '-' +(new Date().getMonth()+1) + '-' + new Date().getFullYear();
+ */input2.id = "Date"
 div2.append(label2, input2)
 
 
@@ -142,7 +144,9 @@ const input4 = document.createElement('input')
 input4.type = "time"
 input4.id = "Time1"
 div4.append(label4, input4)
-
+const input5 = document.createElement('input')
+input5.type="text"
+input5.style.visibility='hidden'
 
 const btn = document.createElement('input')
 btn.type = 'button'
@@ -155,7 +159,7 @@ btn1.id = 'submit1'
 var imp = document.createElement('i')
 imp.setAttribute('class', 'fa fa-close')
 imp.id = "close"
-form.append(divh2, div1, div2, div3, div4, btn,btn1, imp)
+form.append(divh2, div1, div2, div3, div4,input5, btn,btn1, imp)
 
 document.body.append(form);
 
@@ -164,9 +168,11 @@ btn.addEventListener('click',function(){
     var dateVal = input2.value
     var timeVal = input3.value
     var time1Val = input4.value
+    
     if (!isValide(taskVal,dateVal,timeVal,time1Val)) {
         if (Compare(dateVal,timeVal,time1Val)) {
             colsCreate(y,taskVal,dateVal,timeVal,time1Val)
+            y++
             }else{
                 alert('pas Bon')
             }  
@@ -177,21 +183,31 @@ btn.addEventListener('click',function(){
 });
 
 btn1.addEventListener('click',()=>{
-    /* data.dataset.h = input1.value
-    data.dataset.p2 = input2.value
-    data.dataset.p =  input3.value
-    data.dataset.p1 = input4.value
-    if (!isValide(data.dataset.h,data.dataset.p2,data.dataset.p,data.dataset.p1)) {
-        if (Compare(data.dataset.p2,data.dataset.p,data.dataset.p1)) {
-            divover2.innerHTML = data.dataset.p2 + "<br> de <br>" + data.dataset.p + " à " + data.dataset.p1
-            divview.innerText= data.dataset.h
+    var edt = document.getElementById(input5.value)
+    console.log(edt)
+    edt.dataset.h = input1.value
+    edt.dataset.p2 = input2.value
+    edt.dataset.p =  input3.value
+    edt.dataset.p1 = input4.value
+    edt.dataset.id = input5.value
+    console.log(edt.childNodes[3].childNodes[1])
+
+    if (!isValide(edt.dataset.h,edt.dataset.p2,edt.dataset.p,edt.dataset.p1)) {
+        if (Compare(edt.dataset.p2,edt.dataset.p,edt.dataset.p1)) {
+            edt.childNodes[2].innerHTML = edt.dataset.h
+            edt.childNodes[3].childNodes[1].innerHTML = edt.dataset.p2 + "<br> de <br>" + edt.dataset.p + " à " + edt.dataset.p1
             }else{
                 alert('pas Bon')
             }  
-    }  */
+    }
 
-    console.log(data)
-
+    console.log(input5.value)
+    console.log(document.getElementById(input5.value))
+    form.style.display="none"
+    form.reset();
+    inputNotes.removeAttribute('disabled')
+})
+imp.addEventListener('click',()=>{
     form.style.display="none"
     form.reset();
     inputNotes.removeAttribute('disabled')
@@ -210,8 +226,13 @@ function colCreate(i){
     Coltitle.className = "Coltitle"
     const Title = document.createElement('h4')
     Title.innerText = "Colonne " + i
+    var recup = Title.innerText
     Title.addEventListener('mouseleave', () => {
-        Title.contentEditable = false;
+        if (Title.innerText=='') {
+            Title.innerText = recup;
+        }else{
+            Title.contentEditable = false;            
+        }
     })
     const Removing = document.createElement('i');
     const Editing = document.createElement('i');
@@ -228,9 +249,7 @@ function colCreate(i){
     Editing.className = "fa fa-edit"
     Editing.id = "edit"
     Editing.addEventListener('click', () => {
-        Title.contentEditable = true;
         Col.setAttribute("data-rename","true")
-        
     })
 
     Coltitle.append(Title, Editing, Removing);
@@ -240,10 +259,6 @@ function colCreate(i){
 
 function colsCreate(y,taskVal,dateVal,timeVal,time1Val) {
     var div = document.createElement('div');
-    div.setAttribute("data-h",taskVal)
-    div.setAttribute("data-p2",dateVal)
-    div.setAttribute("data-p",timeVal)
-    div.setAttribute("data-p1",time1Val)
     var divview = document.createElement('div');
     var divover = document.createElement('div');
     var iCol= document.createElement('i')
@@ -277,6 +292,8 @@ function colsCreate(y,taskVal,dateVal,timeVal,time1Val) {
         }
     })
     iCol.addEventListener('click',(e)=>{
+        var idParent = e.target.parentElement.parentElement.parentElement.parentElement.id
+        console.log(idParent)
         navBar.appendChild(e.target.parentElement.parentElement.parentElement)
         console.log(navBar)
     })
@@ -289,6 +306,7 @@ function colsCreate(y,taskVal,dateVal,timeVal,time1Val) {
        input2.value = data.dataset.p2
        input3.value = data.dataset.p
        input4.value = data.dataset.p1
+       input5.value = data.dataset.id
     })
 
     left.id = 'left'
@@ -310,17 +328,23 @@ function colsCreate(y,taskVal,dateVal,timeVal,time1Val) {
     p1.className = 'end'
     var col1 = document.getElementById('col1')
 
+    div.setAttribute("data-h",taskVal)
+    div.setAttribute("data-p2",dateVal)
+    div.setAttribute("data-p",timeVal)
+    div.setAttribute("data-p1",time1Val)
+    div.setAttribute("data-id",div.id)
+
     document.getElementById('close').addEventListener('click', () => {
         document.getElementById('close').parentElement.style.display = "none";
         inputNotes.removeAttribute('disabled')
     });
-    divover2.innerHTML = dateVal + "<br> de <br>" + timeVal + " à " + time1Val
-    divview.innerText= taskVal
+    divover2.innerHTML = div.dataset.p2 + "<br> de <br>" + div.dataset.p + " à " + div.dataset.p1
+    divview.innerText= div.dataset.h
     divover1.append(iCol,iiCol)
     divover.append(divover1,divover2)
     div.append(divview, divover);
     col1.append(div);
-    y++;
+
     
    /*  btn.addEventListener('click', () => {
         console.log('ici');
@@ -363,6 +387,8 @@ divNotes.addEventListener('click', () => {
     inputNotes.toggleAttribute('disabled');
    /*  colsCreate(a);
     a++ */
+    btn1.style.display='none'
+    btn.style.display='block'
     form.style.display="block"
 
     /*     console.log(document.getElementById('remove'));
@@ -444,7 +470,13 @@ function Compare(a,x,z){
 }else{
     return false;
 }
+}
 
 
+function grdParent(c,cpt){
+    for (let index = 0; index < cpt; index++) {
+        c+=".parentElement"
+    }
+    return c
 }
 
