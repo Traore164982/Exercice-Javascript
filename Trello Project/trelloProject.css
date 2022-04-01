@@ -376,3 +376,6 @@ textarea{
     visibility: hidden;
 }
 
+.col .Div i[class="fa fa-undo"]{
+    visibility: hidden;
+}

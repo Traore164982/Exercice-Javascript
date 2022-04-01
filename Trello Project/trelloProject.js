@@ -62,6 +62,8 @@ navBari.addEventListener('click', () => {
     navBari.parentElement.parentElement.style.transform = "translateX(100%)"
 })
 
+
+
 const restaure = document.createElement('span')
 const resti = document.createElement('i')
 resti.className = "fa fa-reply"
@@ -249,6 +251,7 @@ function colCreate(i){
     Editing.className = "fa fa-edit"
     Editing.id = "edit"
     Editing.addEventListener('click', () => {
+        Title.contentEditable = true;
         Col.setAttribute("data-rename","true")
     })
 
@@ -265,8 +268,11 @@ function colsCreate(y,taskVal,dateVal,timeVal,time1Val) {
     iCol.className="iCol"
     iCol.className="fa fa-trash"
     var iiCol= document.createElement('i')
-    iiCol.className="iCol"
+    iiCol.className="iiCol"
     iiCol.className="fa fa-edit"
+    var iiiCol= document.createElement('i')
+    iiiCol.className="iiiCol"
+    iiiCol.className="fa fa-undo"
     divview.className = "view";
     divover.id = "over";
     divview.id = "view" + y;
@@ -294,8 +300,9 @@ function colsCreate(y,taskVal,dateVal,timeVal,time1Val) {
     iCol.addEventListener('click',(e)=>{
         var idParent = e.target.parentElement.parentElement.parentElement.parentElement.id
         console.log(idParent)
+        e.target.parentElement.parentElement.parentElement.setAttribute("data-idParent",idParent)
         navBar.appendChild(e.target.parentElement.parentElement.parentElement)
-        console.log(navBar)
+        iiiCol.style.visibility='visible' 
     })
     iiCol.addEventListener('click',(e)=>{
        btn.style.display='none'
@@ -307,6 +314,18 @@ function colsCreate(y,taskVal,dateVal,timeVal,time1Val) {
        input3.value = data.dataset.p
        input4.value = data.dataset.p1
        input5.value = data.dataset.id
+    })
+    iiiCol.addEventListener('click',(e)=>{
+        var parent = document.getElementById(e.target.parentElement.parentElement.parentElement.dataset.idparent)
+        var initial = document.getElementById('col1')
+        console.log(parent);
+        console.log(e.target.parentElement.parentElement.parentElement);
+        if (parent!=null) {                    
+                    parent.appendChild(e.target.parentElement.parentElement.parentElement)
+        }else{
+                    initial.appendChild(e.target.parentElement.parentElement.parentElement)
+        }
+        iiiCol.style.visibility='hidden'
     })
 
     left.id = 'left'
@@ -340,7 +359,7 @@ function colsCreate(y,taskVal,dateVal,timeVal,time1Val) {
     });
     divover2.innerHTML = div.dataset.p2 + "<br> de <br>" + div.dataset.p + " à " + div.dataset.p1
     divview.innerText= div.dataset.h
-    divover1.append(iCol,iiCol)
+    divover1.append(iCol,iiCol,iiiCol)
     divover.append(divover1,divover2)
     div.append(divview, divover);
     col1.append(div);
@@ -369,7 +388,7 @@ function colsCreate(y,taskVal,dateVal,timeVal,time1Val) {
 
     }); */
  }
-
+ 
 var i = 1
 divCol.addEventListener('click', () => {
     if (document.querySelectorAll('.col').length<5){
@@ -439,7 +458,6 @@ function recharge() {
         if (element.dataset.rename!='true') {
             element.childNodes[0].childNodes[0].innerText=`Colonne ${i}`
         }
-        element.id =`col${i}`
         element.style.backgroundColor = tableR[i];
         i++
 });
