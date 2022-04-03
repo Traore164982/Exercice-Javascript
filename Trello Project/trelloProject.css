@@ -8,13 +8,13 @@ body{
     align-items: center;
 }
 #Container{
-    border: 2px solid dimgray;
-    width: 100%;
+    width: 90%;
     min-height: 100vh;
 }
 
 .Colonnes{
     width: 90%;
+    left: 1%;
     height: 5vh;
     margin-bottom: 0.5rem;
     display: flex;
@@ -51,10 +51,23 @@ body{
     height: 100%;
     margin: 0 1%;
     display: flex;
+    border: 1px solid white;
+    border-radius: 15px;
     flex-direction: column;
     align-items: center;
+    animation: wobble;
+    animation-duration: 1.5s;
 }
 
+#divCol{
+    animation: slideInLeft;
+    animation-duration: 2s;
+}
+
+#divNotes{
+    animation: slideInRight;
+    animation-duration: 2s;
+}
 .colChild{
     width: 100%;
     height: 15vh;
@@ -79,6 +92,8 @@ body{
     border-radius: 10px;
     overflow: hidden;
     justify-content: center;
+    animation: rubberBand;
+    animation-duration: 1.4s;
 }
 
 #left{
@@ -89,8 +104,6 @@ body{
     top: 0%;
     font-size: 10px;
     font-weight: bold;
-
-    border: 1px solid red;
 }
 
 #right{
@@ -100,7 +113,6 @@ body{
     top: 0%;
     padding: 10.5% 0;
     font-weight: bold;
-    border: 1px solid red;
 }
 
 #im{
@@ -122,28 +134,14 @@ form{
     border: 1px solid black;
     flex-direction: column;
     justify-content: center;
-    box-shadow: 10px 10px 2px rgba(0,0,0,10);
+    box-shadow: 0 0 14px rgba(0,0,0,10);
+    animation: backInLeft;
+    animation-duration: 1.5s;
 }
 
 h4{
     width: 80%;
 }
-
-/* #overview{
-    position: absolute;
-    bottom: 0;
-    height: 30%;
-    visibility: hidden;
-    overflow-y: scroll;
-    border: 5px solid white;
-    font-size: 23px;
-    transform: scale(0);
-    box-shadow: 0px 0px 14px rgba(0,0,0,10);
-    transition: 2s ease;
- }
-.over{
-    visibility: visible;
-} */
 
 .view{
     height: 100%;
@@ -165,6 +163,10 @@ h4{
     border-radius: 10px;
     display: flex;
     justify-content: center;
+}
+
+.Div:hover{
+    height: 12%;
 }
 
 .Div:hover #over{
@@ -276,6 +278,8 @@ textarea{
     background-image: linear-gradient(black,white,dimgray);
     display: flex;
     flex-direction: column;
+    border: 1px solid white;
+    border-radius: 15px;
 }
 
 #navBar h4{
@@ -378,4 +382,23 @@ textarea{
 
 .col .Div i[class="fa fa-undo"]{
     visibility: hidden;
+}
+
+#Message{
+    background-color: green;
+    border: 2px solid black;
+    height: 10vh;
+    width: 20%;
+    border-radius: 10px;
+    position: absolute;
+    right: 2%;
+    bottom: 2%;
+    z-index: 10;
+    text-align: center;
+    color: white;
+    font-weight: 900;
+    font-size: 20px;
+    animation: zoomInLeft;
+    animation-duration: 1s;
+    display: none;
 }

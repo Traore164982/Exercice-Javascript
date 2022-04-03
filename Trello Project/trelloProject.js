@@ -1,3 +1,5 @@
+const myApi = "http://localhost:8000/?controller=user&action="
+
 const Container = document.createElement('div')
 Container.id = 'Container'
 const divCol = document.createElement('div')
@@ -10,6 +12,10 @@ const divCols = document.createElement('div')
 divCols.id = "divCols"
 const Col = document.createElement('div')
 Col.className = "col";
+
+var Message= document.createElement('div')
+Message.id='Message'
+document.body.appendChild(Message)
 
 var i = 1;
 var y = 1;
@@ -56,13 +62,13 @@ navBar.appendChild(navBarDiv);
 Container.appendChild(labelnav)
 labelnav.addEventListener('click', () => {
     navBar.style.transform = "translateX(0%)"
+    navBar.style.animation = "headShake";
+    navBar.style.animationDuration = "1.5s";
 })
 
 navBari.addEventListener('click', () => {
     navBari.parentElement.parentElement.style.transform = "translateX(100%)"
 })
-
-
 
 const restaure = document.createElement('span')
 const resti = document.createElement('i')
@@ -96,6 +102,15 @@ restaure.addEventListener('click', () => {
 
 const form = document.createElement('form')
 form.id = "form"
+form.method="POST"
+const inph1= document.createElement('input')
+inph1.type="hidden"
+inph1.setAttribute('name','controller')
+inph1.value="user"
+const inph2= document.createElement('input')
+inph2.type="hidden"
+inph2.setAttribute('name','action')
+inph2.value="ajouter"
 const divh2 = document.createElement('div')
 divh2.id = "form-h3"
 const h2 = document.createElement('h2')
@@ -111,6 +126,7 @@ label1.innerText = "Tâches :"
 const input1 = document.createElement('textarea')
 input1.type = "textarea"
 input1.setAttribute('cols', '40')
+input1.setAttribute('name','tache')
 input1.id = "Task"
 div1.append(label1, input1)
 
@@ -123,7 +139,8 @@ const input2 = document.createElement('input')
 input2.type = "date"
 /* input2.max= new Date().getDay() + '-' +(new Date().getMonth()+1) + '-' + new Date().getFullYear();
  */input2.id = "Date"
-div2.append(label2, input2)
+ input2.setAttribute('name','date')
+ div2.append(label2, input2)
 
 
 const div3 = document.createElement('div')
@@ -133,6 +150,7 @@ label3.setAttribute('for', 'Time')
 label3.innerText = "Heure de Début :"
 const input3 = document.createElement('input')
 input3.type = "time"
+input3.setAttribute('name','debut')
 input3.id = "Time"
 div3.append(label3, input3)
 
@@ -143,6 +161,7 @@ const label4 = document.createElement('label')
 label4.setAttribute('for', 'Time1')
 label4.innerText = "Heure de Fin :"
 const input4 = document.createElement('input')
+input4.setAttribute('name','fin')
 input4.type = "time"
 input4.id = "Time1"
 div4.append(label4, input4)
@@ -161,7 +180,7 @@ btn1.id = 'submit1'
 var imp = document.createElement('i')
 imp.setAttribute('class', 'fa fa-close')
 imp.id = "close"
-form.append(divh2, div1, div2, div3, div4,input5, btn,btn1, imp)
+form.append(inph1,inph2,divh2, div1, div2, div3, div4,input5, btn,btn1, imp)
 
 document.body.append(form);
 
@@ -170,13 +189,13 @@ btn.addEventListener('click',function(){
     var dateVal = input2.value
     var timeVal = input3.value
     var time1Val = input4.value
-    
     if (!isValide(taskVal,dateVal,timeVal,time1Val)) {
         if (Compare(dateVal,timeVal,time1Val)) {
             colsCreate(y,taskVal,dateVal,timeVal,time1Val)
             y++
+           sms("Tâche Crée")
             }else{
-                alert('pas Bon')
+           sms("La Tâche n'a pas pu été Crée")
             }  
     } 
     form.style.display="none"
@@ -198,8 +217,9 @@ btn1.addEventListener('click',()=>{
         if (Compare(edt.dataset.p2,edt.dataset.p,edt.dataset.p1)) {
             edt.childNodes[2].innerHTML = edt.dataset.h
             edt.childNodes[3].childNodes[1].innerHTML = edt.dataset.p2 + "<br> de <br>" + edt.dataset.p + " à " + edt.dataset.p1
-            }else{
-                alert('pas Bon')
+            sms('La Tâche a bien été éditée')    
+        }else{
+               sms("Aucune Modification")
             }  
     }
 
@@ -216,7 +236,7 @@ imp.addEventListener('click',()=>{
 })
 
 function colCreate(i){
-    var table = ["","#442288", "#6CA2EA", "#B5D33D", "#FED23F", "#EB7D5B","dimgrey","pink"]
+    var table = ["","#442288", "#6CA2EA", "#B5D33D", "#FED23F", "#EB7D5B"]
     const Col = document.createElement('div')
     Col.style.backgroundColor = table[i];
     var ColImg= document.createElement('img')
@@ -490,6 +510,19 @@ function Compare(a,x,z){
 }
 }
 
+function DateConf(a,x,z){
+    var b = new Date();
+    a=a.split('-')
+    a = new Date(+a[0],(+a[1]-1),+a[2], b.getHours(),b.getMinutes(),b.getSeconds(), b.getMilliseconds())
+    var tmp = a-b 
+   
+    if(tmp>=0){
+        var t = diffdate(x,z)
+        return t
+   }else{
+       return false;
+   }
+   }
 
 function grdParent(c,cpt){
     for (let index = 0; index < cpt; index++) {
@@ -498,3 +531,39 @@ function grdParent(c,cpt){
     return c
 }
 
+
+function sms(a){
+    const h4 = document.createElement("h4");
+                    h4.innerText=`Message : ${a}`;
+                    Message.style.display='block'
+                    Message.appendChild(h4)
+                    setTimeout(()=>{
+                      h4.parentElement.style.display='none';
+                      h4.remove();
+                    },2000);
+  }
+
+
+/* window.onload=()=>{
+    setInterval(()=>{
+        var d = new Date()
+        Container.querySelectorAll('.Div').forEach(element => {
+            console.log(element.dataset)
+            console.log(d);
+        });
+    }
+        ,5000)
+} */
+
+
+function list() {
+    fetch(myApi+"liste").then(function (response) {
+        console.log(response)
+        return response.json()
+    }).then(function (text) {
+        console.log(text)
+    })
+};
+
+
+list()
