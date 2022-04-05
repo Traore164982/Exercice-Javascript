@@ -10,6 +10,10 @@ divNotes.className = "Colonnes"
 divNotes.id = "divNotes"
 const divCols = document.createElement('div')
 divCols.id = "divCols"
+const divSave = document.createElement('div')
+divSave.className = "Colonnes"
+divSave.id="SaveDataTask"
+
 const Col = document.createElement('div')
 Col.className = "col";
 
@@ -18,7 +22,7 @@ Message.id='Message'
 document.body.appendChild(Message)
 
 var i = 1;
-var y = 1;
+var y = 0;
 
 var inputColonne = document.createElement('input')
 inputColonne.value = "Colonne"
@@ -28,13 +32,28 @@ iColonne.className = "fa fa-plus"
 
 var inputNotes = document.createElement('input')
 inputNotes.value = "Notes"
-inputNotes.toggleAttribute('disabled')
 inputNotes.type = "button"
+if (document.querySelectorAll('.Div').length==0) {
+    inputNotes.toggleAttribute('disabled')   
+}
+if (document.querySelectorAll('.Div').length>0) {
+    inputNotes.removeAttribute('disabled')   
+}
+
 var iNotes = document.createElement('i');
 iNotes.className = "fa fa-plus"
 
+
+var inputSave = document.createElement('input')
+inputSave.value = "Sauvegarde"
+inputSave.type = "button"
+/* inputSave.toggleAttribute('disabled')
+ */var iSave = document.createElement('i');
+iSave.className = "fa fa-plus"
+
 divCol.append(iColonne, inputColonne)
 divNotes.append(iNotes, inputNotes)
+divSave.append(iSave, inputSave)
 
 const labelnav = document.createElement('label')
 labelnav.setAttribute('for', 'imp')
@@ -88,7 +107,7 @@ addColonne.appendChild(addColonneI)
 
 
 
-Container.append(divCol, divNotes, divCols, navBar, restaure, addColonne)
+Container.append(divCol, divNotes,divSave, divCols, navBar, restaure, addColonne)
 
 document.body.appendChild(Container);
 
@@ -183,6 +202,7 @@ imp.id = "close"
 form.append(inph1,inph2,divh2, div1, div2, div3, div4,input5, btn,btn1, imp)
 
 document.body.append(form);
+var T= []
 
 btn.addEventListener('click',function(){
     var taskVal = input1.value
@@ -191,7 +211,21 @@ btn.addEventListener('click',function(){
     var time1Val = input4.value
     if (!isValide(taskVal,dateVal,timeVal,time1Val)) {
         if (Compare(dateVal,timeVal,time1Val)) {
+            y = document.querySelectorAll('.Div').length
             colsCreate(y,taskVal,dateVal,timeVal,time1Val)
+          /*   T.push({
+                tache : taskVal,
+                date : dateVal,
+                debut : timeVal,
+                fin : time1Val
+            })
+            fetch(myApi+"ajouter",{
+                method: "POST",
+                body : JSON.stringify(
+                    {
+                        "taches": T
+                }            
+            )}) */
             y++
            sms("Tâche Crée")
             }else{
@@ -215,6 +249,19 @@ btn1.addEventListener('click',()=>{
 
     if (!isValide(edt.dataset.h,edt.dataset.p2,edt.dataset.p,edt.dataset.p1)) {
         if (Compare(edt.dataset.p2,edt.dataset.p,edt.dataset.p1)) {
+           /*  T.push({
+                tache : edt.dataset.h,
+                date : edt.dataset.p2,
+                debut : edt.dataset.p,
+                fin : edt.dataset.p1
+            })
+            fetch(myApi+"ajouter",{
+                method: "POST",
+                body : JSON.stringify(
+                    {
+                        "taches": T
+                }            
+            )}) */
             edt.childNodes[2].innerHTML = edt.dataset.h
             edt.childNodes[3].childNodes[1].innerHTML = edt.dataset.p2 + "<br> de <br>" + edt.dataset.p + " à " + edt.dataset.p1
             sms('La Tâche a bien été éditée')    
@@ -409,12 +456,12 @@ function colsCreate(y,taskVal,dateVal,timeVal,time1Val) {
     }); */
  }
  
-var i = 1
+var i = 0
 divCol.addEventListener('click', () => {
     if (document.querySelectorAll('.col').length<5){
         inputNotes.removeAttribute('disabled')
+        i = document.querySelectorAll('.col').length + 1
         colCreate(i);
-        i++
         if (i>5 && document.querySelectorAll('.col').length<=5) {
             recharge();
             i--
@@ -472,14 +519,14 @@ function removable(el){
 
 function recharge() {
     var colo = document.querySelectorAll('.col');
-    i=1;
+    i=0;
     var tableR = ["","#442288", "#6CA2EA", "#B5D33D", "#FED23F", "#EB7D5B","dimgrey","pink"]
     colo.forEach(element => {
+        i++
         if (element.dataset.rename!='true') {
             element.childNodes[0].childNodes[0].innerText=`Colonne ${i}`
         }
         element.style.backgroundColor = tableR[i];
-        i++
 });
 }
 
@@ -495,6 +542,7 @@ if(seconda<=secondb){
     return false
     }
 }
+
 
 function Compare(a,x,z){
  var b = new Date();
@@ -561,9 +609,109 @@ function list() {
         console.log(response)
         return response.json()
     }).then(function (text) {
-        console.log(text)
+        var y = text["Mes Enregistrements"][0].colonnes.length
+        for (let index = 1; index <=y; index++){
+            colCreate(index)
+        }
+        console.log(document.querySelectorAll('.col')[0].childNodes[0].childNodes[0]);
+        for (let index = 0; index < y; index++) {
+            document.querySelectorAll('.col')[index].childNodes[0].childNodes[0].innerText=text["Mes Enregistrements"][0].colonnes[index]
+        }
+
+        text["Mes Enregistrements"][0].colonnes.forEach(element => {
+
+        });
+        console.log(y);
+        var cpt = text["Mes Enregistrements"][0].idTache.length
+ /*        console.log(text["Mes Enregistrements"][0].idTache)
+        console.log(text["Mes Enregistrements"][0].nomTaches)
+        console.log(text["Mes Enregistrements"][0].dates)
+        console.log(text["Mes Enregistrements"][0].debuts)
+        console.log(text["Mes Enregistrements"][0].fins)
+        console.log(text["Mes Enregistrements"][0].idParentTache)
+        console.log(cpt) */
+        console.log(text["Mes Enregistrements"][0].nomTaches[0]);
+        for (let index = 0; index < cpt; index++) {
+            colsCreate(index,text["Mes Enregistrements"][0].nomTaches[index],text["Mes Enregistrements"][0].dates[index],text["Mes Enregistrements"][0].debuts[index],text["Mes Enregistrements"][0].fins[index])
+        }
+        for (let index = 1; index <= text["Mes Enregistrements"][0].idParentTache.length; index++) {
+          document.getElementById(text["Mes Enregistrements"][0].idParentTache[index]).appendChild(document.getElementById(text["Mes Enregistrements"][0].idTache[index]))
+        }
     })
+    if (document.querySelectorAll('.Div').length==0) {
+        inputNotes.toggleAttribute('disabled')   
+    }
 };
 
-
 list()
+/* setInterval(()=>{
+    Container.childNodes[3].querySelectorAll('.Div').forEach(element=>{
+        var idP=element.parentElement.id
+        var h = element.dataset.h
+        var date = element.dataset.p2
+        var time = element.dataset.p
+        var time1 = element.dataset.p1
+        console.log(idP)
+        console.log(Container.childNodes[3]);
+    })
+},5000) */
+var Mbodj = setInterval(() => {
+    Container.querySelectorAll('.Div').forEach(element => {
+        var c = new Date();
+       var d = element.dataset.p2.split('-');
+       var y = element.dataset.p.split(':')
+       var z = element.dataset.p1.split(':')
+        var e = new Date(+d[0],+d[1]-1,+d[2],+y[0],+y[1])
+        var f = new Date(+d[0],+d[1]-1,+d[2],+z[0],+z[1])
+        var Hour
+        var Hour1
+        Hour = c - e
+        Hour1 = c - f
+        if (Hour>=0) {
+            element.style.backgroundColor='Green'
+        }
+        if (Hour1>=0) {
+            element.style.backgroundColor='red'
+        }
+    });
+}, 1000);
+
+
+
+document.getElementById('SaveDataTask').addEventListener('click',()=>{
+    console.log(Container)
+    var colonnes =[]
+    var idParentTache = []
+    var idTache = []
+    var nomTaches = []
+    var dates = []
+    var debuts =[]
+    var fins = []
+    Container.childNodes[4].querySelectorAll('.col').forEach(element => {
+        colonnes.push(element.childNodes[0].childNodes[0].innerText)
+        element.querySelectorAll('.Div').forEach(elemen => {
+            idParentTache.push(elemen.parentElement.id)
+            nomTaches.push(elemen.dataset.h)
+            dates.push(elemen.dataset.p2)
+            debuts.push(elemen.dataset.p)
+            fins.push(elemen.dataset.p1)
+            idTache.push(elemen.dataset.id)
+        });
+    });
+    console.log(colonnes)
+    fetch(myApi+"ajouter",{
+        method: "POST",
+        body : JSON.stringify(
+            {
+                colonnes : colonnes,
+                nomTaches : nomTaches,
+                dates : dates,
+                debuts : debuts,
+                fins : fins,
+                idTache : idTache,
+                idParentTache : idParentTache
+            }            
+    )})
+
+})
+
